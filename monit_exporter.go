@@ -85,11 +85,11 @@ func FetchMonitStatus(c *Config) ([]byte, error) {
 		return nil, err
 	}
 	data, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
 	if err != nil {
 		log.Fatal("Unable to read monit status")
 		return nil, err
 	}
-	defer resp.Body.Close()
 	return data, nil
 }
 
@@ -172,7 +172,7 @@ func (e *Exporter) scrape() error {
 		if err != nil {
 			e.up.Set(0)
 			e.checkStatus.Reset()
-			log.Errorf("Error parsing data from monit: %v", err)
+			log.Errorf("Error parsing data from monit: %v\n%s", err, data)
 		} else {
 			e.up.Set(1)
 			// Constructing metrics
