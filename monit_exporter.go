@@ -219,12 +219,12 @@ func main() {
 	http.Handle(config.metrics_path, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`<html>
-            <head><title>Monit Exporter</title></head>
-            <body>
-            <h1>Monit Exporter</h1>
-            <p><a href="` + config.metrics_path + `">Metrics</a></p>
-            </body>
-            </html>`))
+			<head><title>Monit Exporter</title></head>
+			<body>
+			<h1>Monit Exporter</h1>
+			<p><a href="` + config.metrics_path + `">Metrics</a></p>
+			</body>
+			</html>`))
 	})
 
 	log.Fatal(http.ListenAndServe(config.listen_address, nil))
