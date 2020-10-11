@@ -1,6 +1,6 @@
 # Monit Exporter for Prometheus
 
-Simple server that periodically scrapes monit status and exports checks information via HTTP for Prometheus.
+Simple server that periodically scrapes monit status and exports checks information via HTTP for Prometheus. This fork has changed little about the metrics emitted by this server- it's still just the status of each check- but it's made some changes to update and improve the code's error handling.
 
 Build it:
 ```bash
