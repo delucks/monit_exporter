@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"crypto/tls"
 	"encoding/xml"
+	"errors"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"sync"
@@ -83,6 +85,13 @@ func FetchMonitStatus(c *Config) ([]byte, error) {
 	if err != nil {
 		log.Error("Unable to fetch monit status")
 		return nil, err
+	}
+	switch resp.StatusCode {
+	case 200:
+	case 401:
+		return nil, errors.New("Authentication with monit failed")
+	default:
+		return nil, fmt.Errorf("Monit returned %s", resp.Status)
 	}
 	data, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
